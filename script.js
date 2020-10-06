@@ -2,8 +2,7 @@
 var masterPassword = [];
 var generateBtn = document.querySelector("#generate");
 
-
-var lowerCaseAlphabet = [
+var lowerCaseAlphabetOptions = [
   "a",
   "b",
   "c",
@@ -33,15 +32,15 @@ var lowerCaseAlphabet = [
 ];
 
 //uppercase assignment
-var upperCaseAlphabet = lowerCaseAlphabet.map((lowerCaseAlphabet) =>
-  lowerCaseAlphabet.toUpperCase()
+var upperCaseAlphabetOptions = lowerCaseAlphabetOptions.map(
+  (lowerCaseAlphabetOptions) => lowerCaseAlphabetOptions.toUpperCase()
 );
 //numeric assignment
 
-var numeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var numericOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 //special character assignment
-var specialCharacters = [
+var specialOptions = [
   "!",
   '"',
   "#",
@@ -76,11 +75,9 @@ var specialCharacters = [
 ];
 
 //section: helper function that collects user input about password data
-function getUserInput(){
+function getUserInput() {
   //password Length
-  var length = prompt(
-    "Choose password length from 8 to 128 characters"
-  );
+  var length = prompt("Choose password length from 8 to 128 characters");
   if (
     length < 8 ||
     length > 128
@@ -104,43 +101,43 @@ function getUserInput(){
     numeric === false &&
     special === false
   )
-    alert("Error. You must choose at least one character type.")
-    //holds all user answers for generate password
-    var userAnswers = {length}
-
-     if(uppercase === true){} 
-      if(lowercase === true) {}
-      if(numeric === true) {}
-      if(special === true) {}
-     
-    
-    console.log(userAnswers)
-   return userAnswers;
-
-
-function generatePassword(){
-  //Chains functions by creating 
-  var userAnswers = getUserInput();
+    alert("Error. You must choose at least one character type.");
+  //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
+  var userAnswers = {
+    uppercase,
+    lowercase,
+    numeric,
+    special,
+    length
+  }
   console.log(userAnswers)
-   
+  
+
+  userAnswers.lengthOption = length 
+  //returns User's length choice and a group of indexes based on user's answers.
+  console.log(userAnswers)
 }
 
 
 
+function generatePassword() {
+  //Chains functions by creating variable with value of return of function
+  var userAnswers = getUserInput();
+  var index = Math.floor(Math.random() * getUserInput.lengthOption); 
+ 
+ 
+}
 
 // Write password to the #password input
 
- function writePassword() {
+function writePassword() {
   var password = generatePassword();
   // var passwordText = document.querySelector("#password");
 
   // passwordText.value = password;
 
   //create logic that combines character lists into master list depending on user answers
-
-} 
-
+}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
