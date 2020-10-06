@@ -108,24 +108,34 @@ function getUserInput() {
     lowercase,
     numeric,
     special,
-    length
-  }
-  console.log(userAnswers)
-  
+    length,
+  };
 
-  userAnswers.lengthOption = length 
   //returns User's length choice and a group of indexes based on user's answers.
-  console.log(userAnswers)
+  return userAnswers;
 }
-
-
 
 function generatePassword() {
   //Chains functions by creating variable with value of return of function
   var userAnswers = getUserInput();
-  var index = Math.floor(Math.random() * getUserInput.lengthOption); 
- 
- 
+  passwordList = [];
+  console.log(userAnswers);
+
+  if (userAnswers.lowercase === true) {
+    passwordList = passwordList.concat(lowerCaseAlphabetOptions);
+  }
+
+  if (userAnswers.uppercase === true) {
+    passwordList = passwordList.concat(upperCaseAlphabetOptions);
+  }
+  if (userAnswers.numeric === true) {
+    passwordList = passwordList.concat(numericOptions);
+  }
+  if (userAnswers.special === true) {
+    passwordList = passwordList.concat(specialOptions);
+  }
+  console.log(passwordList);
+  var index = Math.floor(Math.random() * getUserInput.lengthOption);
 }
 
 // Write password to the #password input
