@@ -1,3 +1,5 @@
+//Important: The problem is i lost the userinput length when i combined functions. Only the list is outputting.
+
 // Assignment Code
 var masterPassword = [];
 var generateBtn = document.querySelector("#generate");
@@ -74,77 +76,94 @@ var specialOptions = [
   "/",
 ];
 
-//section: helper function that collects user input about password data
+//section: collects user input then outputs characterlists based on user choices
 function getUserInput() {
   //password Length
-  var length = prompt("Choose password length from 8 to 128 characters");
+  var lengthOption = parseInt(
+    prompt("Choose password length from 8 to 128 characters")
+  );
+  passwordList = [];
   if (
-    length < 8 ||
-    length > 128
+    lengthOption < 8 ||
+    lengthOption > 128
     //This spot needs error handling for inputs that are not a number
   ) {
     alert("Error. Please enter number between 8 and 128");
   }
   //uppercase
-  var uppercase = confirm("Would you like uppercase characters?");
+  var uppercaseOption = confirm("Would you like uppercase characters?");
   //lowercase
-  var lowercase = confirm("Would you like lowercase characters?");
+  var lowercaseOption = confirm("Would you like lowercase characters?");
   //numeric.
-  var numeric = confirm("Would you like numeric characters?");
+  var numericOption = confirm("Would you like numeric characters?");
   //special
-  var special = confirm("Would you like special characters?");
+  var specialOption = confirm("Would you like special characters?");
 
   //error handling: at least one character type must be choseen
   if (
-    lowercase === false &&
-    uppercase === false &&
-    numeric === false &&
-    special === false
+    lowercaseOption === false &&
+    uppercaseOption === false &&
+    numericOption === false &&
+    specialOption === false
   )
     alert("Error. You must choose at least one character type.");
   //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
   var userAnswers = {
-    uppercase,
-    lowercase,
-    numeric,
-    special,
-    length,
+    uppercaseOption,
+    lowercaseOption,
+    numericOption,
+    specialOption,
+    lengthOption,
   };
 
-  //returns User's length choice and a group of indexes based on user's answers.
   return userAnswers;
 }
-
-function generatePassword() {
-  //Chains functions by creating variable with value of return of function
-  var userAnswers = getUserInput();
+function createList() {
+  userAnswers = getUserInput();
   passwordList = [];
-  console.log(userAnswers);
-
-  if (userAnswers.lowercase === true) {
+  if (userAnswers.lowercaseOption === true) {
     passwordList = passwordList.concat(lowerCaseAlphabetOptions);
   }
 
-  if (userAnswers.uppercase === true) {
+  if (userAnswers.uppercaseOption === true) {
     passwordList = passwordList.concat(upperCaseAlphabetOptions);
   }
-  if (userAnswers.numeric === true) {
+  if (userAnswers.numericOption === true) {
     passwordList = passwordList.concat(numericOptions);
   }
-  if (userAnswers.special === true) {
+  if (userAnswers.specialOption === true) {
     passwordList = passwordList.concat(specialOptions);
   }
-  console.log(passwordList);
-  var index = Math.floor(Math.random() * getUserInput.lengthOption);
+  return passwordList;
+}
+
+function generatePassword() {
+  //consists of arrays concated from user answers.
+  var passwordList = createList();
+  //empty string for password
+  //the length option entered by the user
+  var lengthOption = getUserInput().lengthOption;
+  var password = "";
+  //math randomizer given to class from teacher
+  for (i = 0; i < lengthOption; i++) {
+    //finds a randomindex
+    var index = Math.floor(Math.random() * passwordList.length);
+    var password = password.concat(passwordList[index]);
+  }
+
+  return password;
+  // var passwordPossible = passwordList(index)
+  // console.log(passwordPossible)
 }
 
 // Write password to the #password input
 
 function writePassword() {
   var password = generatePassword();
-  // var passwordText = document.querySelector("#password");
 
-  // passwordText.value = password;
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
 
   //create logic that combines character lists into master list depending on user answers
 }
