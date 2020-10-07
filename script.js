@@ -1,11 +1,6 @@
-//To Do
-/*
-   5. consider recreating repo
-   5. Fun Styling. Add favicon, consider looking into prompt animations. 
-   */
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
+//lowercase assignment
 var lowerCaseAlphabetOptions = [
   "a",
   "b",
@@ -78,10 +73,10 @@ var specialOptions = [
   "/",
 ];
 
-//section: collects user input then outputs characterlists based on user choices
+// collects user choices on uppercase, lowercase, numeric, special, and character length and stores in an object
 function getUserInput() {
-  //password Length
   var lengthOption = prompt("Choose password length from 8 to 128 characters");
+  // error handling to make sure user inputs a number between 8 and 128.
   if (
     lengthOption < 8 ||
     lengthOption > 128 ||
@@ -91,16 +86,16 @@ function getUserInput() {
   ) {
     alert("Error. Please enter number between 8 and 128");
   } else {
-    //uppercase
+    //uppercase prompt and answer storage
     var uppercaseOption = confirm("Would you like uppercase characters?");
-    //lowercase
+    //lowercase prompt and answer storage
     var lowercaseOption = confirm("Would you like lowercase characters?");
-    //numeric.
+    //numeric prompt and answer storage
     var numericOption = confirm("Would you like numeric characters?");
-    //special
+    //special prompt and answer storage
     var specialOption = confirm("Would you like special characters?");
 
-    //error handling: at least one character type must be choseen
+    //error handling: at least one character type must be chosen
     if (
       lowercaseOption === false &&
       uppercaseOption === false &&
@@ -109,7 +104,7 @@ function getUserInput() {
     ) {
       alert("Error. You must choose at least one character type.");
     } else {
-      //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
+      //object that holds all user answers to be returned
       var userAnswers = {
         uppercaseOption,
         lowercaseOption,
@@ -122,27 +117,32 @@ function getUserInput() {
     } // else statement that continues function if at least one chacter type was chosed by user
   } // else statement that continues function if a valid number was chosen by user
 }
+//takes the user inputs and outputs an object with a master array of characters and password length
 function createList() {
   var userAnswers = getUserInput();
   var passwordObject = {
     passwordList: [],
     lengthOption: userAnswers.lengthOption,
   };
+  //adds lowercase if true
   if (userAnswers.lowercaseOption === true) {
     passwordObject.passwordList = passwordObject.passwordList.concat(
       lowerCaseAlphabetOptions
     );
   }
+  //adds uppercase if true
   if (userAnswers.uppercaseOption === true) {
     passwordObject.passwordList = passwordObject.passwordList.concat(
       upperCaseAlphabetOptions
     );
   }
+  //adds numeric if true
   if (userAnswers.numericOption === true) {
     passwordObject.passwordList = passwordObject.passwordList.concat(
       numericOptions
     );
   }
+  //adds special characters if true
   if (userAnswers.specialOption === true) {
     passwordObject.passwordList = passwordObject.passwordList.concat(
       specialOptions
@@ -151,31 +151,26 @@ function createList() {
   return passwordObject;
 }
 
+//Takes the array from createlist, randomizes it, sets it's length, and outputs their answer
 function generatePassword() {
-  //consists of arrays concated from user answers.
+  //assigning variable that holds password arrays and password length
   var passwordObject = createList();
   //empty string for password
   var password = "";
-  //math randomizer given to class from teacher
+  //math randomizer that itterates the length chosen by user
   for (i = 0; i < passwordObject.lengthOption; i++) {
     //finds a randomindex
     var index = Math.floor(Math.random() * passwordObject.passwordList.length);
     var password = password.concat(passwordObject.passwordList[index]);
   }
   return password;
-  // var passwordPossible = passwordList(index)
-  // console.log(passwordPossible)
 }
 
-// Write password to the #password input
-
+// Takes password generated from generatepassword, and writes it into the HTML.
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
-
-  //create logic that combines character lists into master list depending on user answers
 }
 
 // Add event listener to generate button
