@@ -1,4 +1,3 @@
-//Important: The problem is i lost the userinput length when i combined functions. Only the list is outputting.
 
 // Assignment Code
 var masterPassword = [];
@@ -82,7 +81,7 @@ function getUserInput() {
   var lengthOption = parseInt(
     prompt("Choose password length from 8 to 128 characters")
   );
-  passwordList = [];
+
   if (
     lengthOption < 8 ||
     lengthOption > 128
@@ -105,8 +104,9 @@ function getUserInput() {
     uppercaseOption === false &&
     numericOption === false &&
     specialOption === false
-  )
+  ) {
     alert("Error. You must choose at least one character type.");
+  }
   //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
   var userAnswers = {
     uppercaseOption,
@@ -119,38 +119,37 @@ function getUserInput() {
   return userAnswers;
 }
 function createList() {
-  userAnswers = getUserInput();
-  passwordList = [];
+  var userAnswers = getUserInput();
+  var passwordObject = {
+    passwordList:[],
+    lengthOption:userAnswers.lengthOption,
+  } ;
   if (userAnswers.lowercaseOption === true) {
-    passwordList = passwordList.concat(lowerCaseAlphabetOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(lowerCaseAlphabetOptions);
   }
-
   if (userAnswers.uppercaseOption === true) {
-    passwordList = passwordList.concat(upperCaseAlphabetOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(upperCaseAlphabetOptions);
   }
   if (userAnswers.numericOption === true) {
-    passwordList = passwordList.concat(numericOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(numericOptions);
   }
   if (userAnswers.specialOption === true) {
-    passwordList = passwordList.concat(specialOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(specialOptions);
   }
-  return passwordList;
+  return passwordObject;
 }
 
 function generatePassword() {
   //consists of arrays concated from user answers.
-  var passwordList = createList();
+  var passwordObject = createList();
   //empty string for password
-  //the length option entered by the user
-  var lengthOption = getUserInput().lengthOption;
   var password = "";
   //math randomizer given to class from teacher
-  for (i = 0; i < lengthOption; i++) {
+  for (i = 0; i < passwordObject.lengthOption; i++) {
     //finds a randomindex
-    var index = Math.floor(Math.random() * passwordList.length);
-    var password = password.concat(passwordList[index]);
+    var index = Math.floor(Math.random() * passwordObject.passwordList.length);
+    var password = password.concat(passwordObject.passwordList[index]);
   }
-
   return password;
   // var passwordPossible = passwordList(index)
   // console.log(passwordPossible)
@@ -160,7 +159,6 @@ function generatePassword() {
 
 function writePassword() {
   var password = generatePassword();
-
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
