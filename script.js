@@ -1,8 +1,5 @@
 //To Do
-/* 1. add error logic for not a number 
-   2. Check to see if I need "are you sure" confirmations in prompts
-   3. make prompts break if the user errors 
-   4. Look into making sure a certain character type makes it into random 
+/*
    5. consider recreating repo
    5. Fun Styling. Add favicon, consider looking into prompt animations. 
    */
@@ -93,35 +90,37 @@ function getUserInput() {
     isNaN(+lengthOption)
   ) {
     alert("Error. Please enter number between 8 and 128");
-  }
-  //uppercase
-  var uppercaseOption = confirm("Would you like uppercase characters?");
-  //lowercase
-  var lowercaseOption = confirm("Would you like lowercase characters?");
-  //numeric.
-  var numericOption = confirm("Would you like numeric characters?");
-  //special
-  var specialOption = confirm("Would you like special characters?");
+  } else {
+    //uppercase
+    var uppercaseOption = confirm("Would you like uppercase characters?");
+    //lowercase
+    var lowercaseOption = confirm("Would you like lowercase characters?");
+    //numeric.
+    var numericOption = confirm("Would you like numeric characters?");
+    //special
+    var specialOption = confirm("Would you like special characters?");
 
-  //error handling: at least one character type must be choseen
-  if (
-    lowercaseOption === false &&
-    uppercaseOption === false &&
-    numericOption === false &&
-    specialOption === false
-  ) {
-    alert("Error. You must choose at least one character type.");
-  }
-  //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
-  var userAnswers = {
-    uppercaseOption,
-    lowercaseOption,
-    numericOption,
-    specialOption,
-    lengthOption,
-  };
+    //error handling: at least one character type must be choseen
+    if (
+      lowercaseOption === false &&
+      uppercaseOption === false &&
+      numericOption === false &&
+      specialOption === false
+    ) {
+      alert("Error. You must choose at least one character type.");
+    } else {
+      //holds all user answers for generate password. Note to self: If true, the associated index becomes its value.
+      var userAnswers = {
+        uppercaseOption,
+        lowercaseOption,
+        numericOption,
+        specialOption,
+        lengthOption,
+      };
 
-  return userAnswers;
+      return userAnswers;
+    } // else statement that continues function if at least one chacter type was chosed by user
+  } // else statement that continues function if a valid number was chosen by user
 }
 function createList() {
   var userAnswers = getUserInput();
