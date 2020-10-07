@@ -1,6 +1,12 @@
-
+//To Do
+/* 1. add error logic for not a number 
+   2. Check to see if I need "are you sure" confirmations in prompts
+   3. make prompts break if the user errors 
+   4. Look into making sure a certain character type makes it into random 
+   5. consider recreating repo
+   5. Fun Styling. Add favicon, consider looking into prompt animations. 
+   */
 // Assignment Code
-var masterPassword = [];
 var generateBtn = document.querySelector("#generate");
 
 var lowerCaseAlphabetOptions = [
@@ -78,14 +84,13 @@ var specialOptions = [
 //section: collects user input then outputs characterlists based on user choices
 function getUserInput() {
   //password Length
-  var lengthOption = parseInt(
-    prompt("Choose password length from 8 to 128 characters")
-  );
-
+  var lengthOption = prompt("Choose password length from 8 to 128 characters");
   if (
     lengthOption < 8 ||
-    lengthOption > 128
-    //This spot needs error handling for inputs that are not a number
+    lengthOption > 128 ||
+    //Modified from https://stackoverflow.com/questions/36552735/javascript-prompt-while-input-is-not-a-number
+    //isNan checks if its a number, and + or unery operator tries to convert string into number.
+    isNaN(+lengthOption)
   ) {
     alert("Error. Please enter number between 8 and 128");
   }
@@ -121,20 +126,28 @@ function getUserInput() {
 function createList() {
   var userAnswers = getUserInput();
   var passwordObject = {
-    passwordList:[],
-    lengthOption:userAnswers.lengthOption,
-  } ;
+    passwordList: [],
+    lengthOption: userAnswers.lengthOption,
+  };
   if (userAnswers.lowercaseOption === true) {
-    passwordObject.passwordList = passwordObject.passwordList.concat(lowerCaseAlphabetOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(
+      lowerCaseAlphabetOptions
+    );
   }
   if (userAnswers.uppercaseOption === true) {
-    passwordObject.passwordList = passwordObject.passwordList.concat(upperCaseAlphabetOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(
+      upperCaseAlphabetOptions
+    );
   }
   if (userAnswers.numericOption === true) {
-    passwordObject.passwordList = passwordObject.passwordList.concat(numericOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(
+      numericOptions
+    );
   }
   if (userAnswers.specialOption === true) {
-    passwordObject.passwordList = passwordObject.passwordList.concat(specialOptions);
+    passwordObject.passwordList = passwordObject.passwordList.concat(
+      specialOptions
+    );
   }
   return passwordObject;
 }
