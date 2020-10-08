@@ -1,7 +1,7 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
+const generateBtn = document.querySelector("#generate");
 //lowercase assignment
-var lowerCaseAlphabetOptions = [
+const lowerCaseAlphabetOptions = [
   "a",
   "b",
   "c",
@@ -31,15 +31,15 @@ var lowerCaseAlphabetOptions = [
 ];
 
 //uppercase assignment
-var upperCaseAlphabetOptions = lowerCaseAlphabetOptions.map(
+const upperCaseAlphabetOptions = lowerCaseAlphabetOptions.map(
   (lowerCaseAlphabetOptions) => lowerCaseAlphabetOptions.toUpperCase()
 );
 //numeric assignment
 
-var numericOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const numericOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 //special character assignment
-var specialOptions = [
+const specialOptions = [
   "!",
   '"',
   "#",
@@ -75,7 +75,9 @@ var specialOptions = [
 
 // collects user choices on uppercase, lowercase, numeric, special, and character length and stores in an object
 function getUserInput() {
-  var lengthOption = prompt("Choose password length from 8 to 128 characters");
+  const lengthOption = prompt(
+    "Choose password length from 8 to 128 characters"
+  );
   // error handling to make sure user inputs a number between 8 and 128.
   if (
     lengthOption < 8 ||
@@ -87,13 +89,13 @@ function getUserInput() {
     alert("Error. Please enter number between 8 and 128");
   } else {
     //uppercase prompt and answer storage
-    var uppercaseOption = confirm("Would you like uppercase characters?");
+    const uppercaseOption = confirm("Would you like uppercase characters?");
     //lowercase prompt and answer storage
-    var lowercaseOption = confirm("Would you like lowercase characters?");
+    const lowercaseOption = confirm("Would you like lowercase characters?");
     //numeric prompt and answer storage
-    var numericOption = confirm("Would you like numeric characters?");
+    const numericOption = confirm("Would you like numeric characters?");
     //special prompt and answer storage
-    var specialOption = confirm("Would you like special characters?");
+    const specialOption = confirm("Would you like special characters?");
 
     //error handling: at least one character type must be chosen
     if (
@@ -105,7 +107,7 @@ function getUserInput() {
       alert("Error. You must choose at least one character type.");
     } else {
       //object that holds all user answers to be returned
-      var userAnswers = {
+      const userAnswers = {
         uppercaseOption,
         lowercaseOption,
         numericOption,
@@ -119,8 +121,8 @@ function getUserInput() {
 }
 //takes the user inputs and outputs an object with a master array of characters and password length
 function createList() {
-  var userAnswers = getUserInput();
-  var passwordObject = {
+  const userAnswers = getUserInput();
+  const passwordObject = {
     passwordList: [],
     lengthOption: userAnswers.lengthOption,
   };
@@ -153,23 +155,25 @@ function createList() {
 
 //Takes the array from createlist, randomizes it, sets it's length, and outputs their answer
 function generatePassword() {
-  //assigning variable that holds password arrays and password length
-  var passwordObject = createList();
+  //assigning constiable that holds password arrays and password length
+  const passwordObject = createList();
   //empty string for password
-  var password = "";
+  let password = "";
   //math randomizer that itterates the length chosen by user
   for (i = 0; i < passwordObject.lengthOption; i++) {
     //finds a randomindex
-    var index = Math.floor(Math.random() * passwordObject.passwordList.length);
-    var password = password.concat(passwordObject.passwordList[index]);
+    const index = Math.floor(
+      Math.random() * passwordObject.passwordList.length
+    );
+    password = password.concat(passwordObject.passwordList[index]);
   }
   return password;
 }
 
 // Takes password generated from generatepassword, and writes it into the HTML.
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  const password = generatePassword();
+  const passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 
